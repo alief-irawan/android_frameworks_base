@@ -566,6 +566,8 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
         return mExpanded;
     }
 
+<<<<<<< HEAD
+=======
     private final class SettingObserver extends ContentObserver {
         public SettingObserver(Handler handler) {
             super(handler);
@@ -573,7 +575,10 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
 
         void observe() {
             ContentResolver resolver = mContext.getContentResolver();
-                 resolver.registerContentObserver(Settings.System.getUriFor(
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.QS_BOTTOM_BRIGHTNESS),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.BRIGHTNESS_SLIDER_QS_UNEXPANDED),
                     false, this, UserHandle.USER_ALL);
             update();
@@ -586,8 +591,20 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
         }
 
         public void update() {
+            boolean mBottomBrightnessSlider = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.QS_BOTTOM_BRIGHTNESS, 0) != 0;
             mQSBrightnessSlider = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.BRIGHTNESS_SLIDER_QS_UNEXPANDED, 0) != 0;
+
+            if (!mBottomBrightnessSlider) {
+                removeView(mBrightnessView);
+                addView(mBrightnessView, 0);
+                mBrightnessBottom = false;
+            } else if (mBottomBrightnessSlider) {
+                removeView(mBrightnessView);
+                addView(mBrightnessView, getBrightnessViewPositionBottom());
+                mBrightnessBottom = true;
+            }
 
             if (mQSBrightnessSlider) {
                 removeView(mBrightnessView);
@@ -596,6 +613,7 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
         }
     }
 
+>>>>>>> 4c076b5ec46... optional miui-like brightness slider [1/3]
     protected TileRecord addTile(final QSTile tile, boolean collapsedView) {
         final TileRecord r = new TileRecord();
         r.tile = tile;

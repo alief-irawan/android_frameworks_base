@@ -688,5 +688,6 @@ public class QSFragment extends LifecycleFragment implements QS, CommandQueue.Ca
                 Settings.System.BRIGHTNESS_SLIDER_QS_UNEXPANDED, 0) != 0;
             updateBrightnessSliderVisibility(mUnexpandedQSBrightnessSlider);
         }
+>>>>>>> 4c076b5ec46... optional miui-like brightness slider [1/3]
     }
 }

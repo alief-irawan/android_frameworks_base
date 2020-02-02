@@ -4824,6 +4824,17 @@ public final class Settings {
                 BOOLEAN_VALIDATOR;
 
         /**
+         * Miui Brightness Slider
+         * @hide
+         */
+        public static final String BRIGHTNESS_SLIDER_QS_UNEXPANDED = "brightness_slider_qs_unexpanded";
+
+        /** @hide */
+        private static final Validator BRIGHTNESS_SLIDER_QS_UNEXPANDED_VALIDATOR = new
+                SettingsValidators.InclusiveIntegerRangeValidator(0, 1);
+
+
+        /**
          * @hide
          */
         public static final String VOLUME_BUTTON_MUSIC_CONTROL = "volume_button_music_control";
@@ -6995,6 +7006,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(STOCK_STATUSBAR_IN_HIDE);
             PRIVATE_SETTINGS.add(FEATURE_TOUCH_HOVERING);
             PRIVATE_SETTINGS.add(HIGH_TOUCH_SENSITIVITY_ENABLE);
+            PRIVATE_SETTINGS.add(BRIGHTNESS_SLIDER_QS_UNEXPANDED);
         }
 
         /**
@@ -7188,6 +7200,7 @@ public final class Settings {
             VALIDATORS.put(STOCK_STATUSBAR_IN_HIDE, STOCK_STATUSBAR_IN_HIDE_VALIDATOR);
             VALIDATORS.put(FEATURE_TOUCH_HOVERING, FEATURE_TOUCH_HOVERING_VALIDATOR);
             VALIDATORS.put(HIGH_TOUCH_SENSITIVITY_ENABLE, HIGH_TOUCH_SENSITIVITY_ENABLE_VALIDATOR);
+            VALIDATORS.put(BRIGHTNESS_SLIDER_QS_UNEXPANDED, BRIGHTNESS_SLIDER_QS_UNEXPANDED_VALIDATOR);
         }
 
         /**
