@@ -31,6 +31,7 @@ import android.content.Context;
 import android.content.ContentResolver;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.database.ContentObserver;
 import android.metrics.LogMaker;
 import android.os.Bundle;
 import android.os.Handler;
@@ -38,6 +39,7 @@ import android.os.Message;
 import android.os.UserHandle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.net.Uri;
 import android.provider.Settings;
 import android.service.quicksettings.Tile;
 import android.util.AttributeSet;
@@ -104,6 +106,7 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
 
     protected boolean mExpanded;
     protected boolean mListening;
+    private SettingObserver mSettingObserver;
     private boolean mIsAutomaticBrightnessAvailable = false;
 
     private QSDetail.Callback mCallback;
@@ -146,6 +149,8 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
         mContext = context;
 
         final ContentResolver resolver = context.getContentResolver();
+
+        mSettingObserver = new SettingObserver(new Handler(context.getMainLooper()));
 
         mVibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
         setOrientation(VERTICAL);
@@ -290,6 +295,9 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
         tunerService.addTunable(this, QS_SHOW_AUTO_BRIGHTNESS);
         tunerService.addTunable(this, QS_SHOW_BRIGHTNESS_SLIDER);
         tunerService.addTunable(this, QS_SHOW_BRIGHTNESS_BUTTONS);
+
+        mSettingObserver.observe();
+        mSettingObserver.update();
 
         if (mHost != null) {
             setTiles(mHost.getTiles());
@@ -586,7 +594,7 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
         }
 
         public void update() {
-            mQSBrightnessSlider = Settings.System.getInt(mContext.getContentResolver(),
+           boolean mQSBrightnessSlider = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.BRIGHTNESS_SLIDER_QS_UNEXPANDED, 0) != 0;
 
             if (mQSBrightnessSlider) {
