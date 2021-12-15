@@ -594,7 +594,7 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
         }
 
         public void update() {
-           boolean mQSBrightnessSlider = Settings.System.getInt(mContext.getContentResolver(),
+           mQSBrightnessSlider = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.BRIGHTNESS_SLIDER_QS_UNEXPANDED, 0) != 0;
 
             if (mQSBrightnessSlider) {
