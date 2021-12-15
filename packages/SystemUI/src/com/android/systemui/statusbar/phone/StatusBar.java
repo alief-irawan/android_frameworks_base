@@ -4644,6 +4644,7 @@ public class StatusBar extends SystemUI implements DemoMode,
             setMediaHeadsup();
             setQsBatteryPercentMode();
             updateTicker();
+            updateBrightnessSliderOverlay();
         }
     }
 
