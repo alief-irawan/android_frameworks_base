@@ -242,7 +242,6 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
 
     private void restartQSPanel() {
         if (mFooter.getView() != null) removeView(mFooter.getView());
-        if (mDivider != null) removeView(mDivider);
         if ((View) mTileLayout != null) removeView((View) mTileLayout);
         if (mBrightnessView != null) removeView(mBrightnessView);
 
